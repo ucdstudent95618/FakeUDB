@@ -1,3 +1,49 @@
 % Problem 1c goes below
 
+The FD's that should hold are the following:  \\
 
+$SID \rightarrow PREFNAME SURNAME EMAIL  $ \\
+$SID \rightarrow PREFNAME$ \\
+$SID \rightarrow SURNAME$ \\
+$SID \rightarrow EMAIL$ \\ 
+
+$CID TERM \rightarrow SEC UNITS SUBJ CRSE$ \\
+$CID TERM \rightarrow SEC$ \\
+$CID TERM \rightarrow UNITS$ \\ 
+$CID TERM \rightarrow SUBJ$ \\
+$CID TERM \rightarrow CRSE$ \\
+
+$TYPE \rightarrow INSTRUCTOR(S) ROOM BUILD TIME DAYS$ \\
+$TYPE \rightarrow INSTRUCTOR(S)$ \\
+$TYPE \rightarrow ROOM$ \\
+$TYPE \rightarrow BUILD$ \\ 
+$TYPE \rightarrow TIME$ \\
+$TYPE \rightarrow DAYS$ \\
+
+
+The MD's that should hold are the following: \\
+
+$SID \doublerightarrow PREFNAME SURNAME EMAIL$ \\
+$SID \doublerightarrow PREFNAME$ \\
+$SID \doublerightarrow SURNAME EMAIL$ \\
+$SID \doublerightarrow SURNAME$ \\
+$SID \doublerightarrow PREFNAME EMAIL$ \\
+$SID \doublerightarrow EMAIL$ \\ 
+$SID \doublerightarrow SURNAME PREFNAME$ \\
+
+$CID TERM \doublerightarrow SEC UNITS SUBJ CRSE$ \\
+$CID TERM \doublerightarrow SEC$ \\
+$CID TERM \doublerightarrow UNITS SUBJ CRSE$ \\
+$CID TERM \doublerightarrow UNITS$ \\
+$CID TERM \doublerightarrow SEC SUBJ CRSE$\\
+$CID TERM \doublerightarrow SUBJ$ \\
+$CID TERM \doublerightarrow SEC UNITS CRSE$ \\
+$CID TERM \doublerightarrow CRSE$ \\
+$CID TERM \doublerightarrow SEC SUBJ UNITS$ \\
+
+$TYPE \doublerightarrow INSTRUCTOR(S) ROOM BUILD TIME DAYS$ \\
+$TYPE \doublerightarrow INSTRUCTOR(S)$ \\
+$TYPE \doublerightarrow ROOM$ \\
+$TYPE \doublerightarrow BUILD$ \\
+$TYPE \doublerightarrow TIME$ \\
+$TYPE \doublerightarrow DAYS$ \\
