@@ -1,13 +1,18 @@
 % Problem 1b goes below
 
 
+The relations are the following: \\
 
+Course(CID,TERM,SUBJ,CRSE,SEC,UNITS) \\
+Meeting(CID,TERM,INSTRUCTOR(S),TYPE,DAYS,TIME,BUILD,ROOM) \\
+Enrolled(CID,TERM,SID,SEAT,LEVEL,UNITS,CLASS,MAJOR,GRADE,STATUS) \\
+Student(SID,SURNAME,PREFNAME,EMAIL) \\
 
-In the scheema we will have three tables: course, student, meeting.
+In the scheema we will have three tables: Course, Student, Meeting. \\
 
 Course: \\
-We have the following attributes: TERM, UNITS, CID, SUBJ, CRSE, SEC \\
-The key is CID, SEC, TERM \\
+We have the following attributes: CID, TERM, SUBJ, CRSE, SEC, UNITS \\
+The key is CID, TERM \\
 
 Student: \\
 We have the following attributes: SEAT, SID, SURNAME, PREFNAME, LEVEL, UNITS,
@@ -15,8 +20,9 @@ CLASS, MAJOR, GRADE, STATUS, EMAIL \\
 The key is SID \\
 
 Meeting:\\
-We have the following attributes: INSTRUCTOR, TYPE, DAYS, TIME, BUILD, ROOM\\
-The key is INSTRUCTOR, DAYS, TIME, ROOM \\
+We have the following attributes: CID, TERM, INSTRUCTOR(S), TYPE, DAYS, TIME, BUILD, ROOM\\
+The key is TYPE \\
 
-We will have a many to many relation from Course to Student and a one to many relation from Course 
-to Meeting. \\
+We will have two relationships: course & student(enrolled), course & meeting (belongs to). \\ 
+
+
