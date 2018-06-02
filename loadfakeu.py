@@ -35,7 +35,7 @@ def loadfakeu(*arg):
 			Time VARCHAR(30),
 			Building VARCHAR(10),
 			Room VARCHAR(5),
-			PRIMARY KEY(CID, Term, Instructor, Type, Days, Time)
+			PRIMARY KEY(CID, Term, Type)
 		)
 	""")
 
@@ -56,7 +56,7 @@ def loadfakeu(*arg):
 			SID INT,
 			Seat INT,
 			Level VARCHAR(5),
-			Units VARCHAR(5),
+			Units DECIMAL(3,1),
 			Class VARCHAR(2),
 			Major VARCHAR(5),
 			Grade VARCHAR(5),
@@ -76,7 +76,7 @@ def loadfakeu(*arg):
 				if line[0] == 'CID':
 					line = next(reader)
 					while len(line) != 1:
-						line = ['NULL' if x=='' else x for x in line]
+						line = [None if x=='' else x for x in line]
 						cid, term, subj, crse, sec, units = line
 						cursor.execute(
 							"INSERT INTO Course VALUES (%s, %s, %s, %s, %s, %s)",
@@ -89,12 +89,15 @@ def loadfakeu(*arg):
 					while len(line) != 1:
 						if counter != 0:
 							line[0] = instructor
-						line = ['NULL' if x == '' else x for x in line]
+						line = [None if x == '' else x for x in line]
 						instructor, type, days, time, build, room = line
 						line = [cid, term] + line
+						if type == None:
+							type = 'NULL'
+							line[3] = 'NULL'
 						cursor.execute(
 							"""INSERT INTO Meeting VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-							ON CONFLICT (CID, Term, Instructor, Type, Days, Time) DO NOTHING
+							ON CONFLICT (CID, Term, Type) DO NOTHING
 							""",
 							line
 						)
@@ -112,7 +115,7 @@ def loadfakeu(*arg):
 						cursor.execute("DELETE FROM Meeting WHERE CID=%s AND Term=%s AND Type=%s", (cid, term, type))
 					else:
 						while len(line) != 0 and len(line) != 1:
-							line = ['NULL' if x == '' else x for x in line]
+							line = [None if x == '' else x for x in line]
 							seat, sid, surname, prefname, level, units, clas, major, grade, status, email = line
 							line = [cid, term, sid, seat, level, units, clas, major, grade, status]
 							cursor.execute(
