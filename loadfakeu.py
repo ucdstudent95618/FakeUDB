@@ -1,7 +1,7 @@
 import psycopg2
 import csv
 import os
-import time
+import time 
 
 
 def loadfakeu(*arg):
@@ -10,7 +10,7 @@ def loadfakeu(*arg):
 	else:
 		directory = arg[0]
 
-	connection = psycopg2.connect("dbname=FakeUData")
+	connection = psycopg2.connect("dbname=fakeudata")
 	cursor = connection.cursor()
 
 	cursor.execute("""
@@ -136,7 +136,7 @@ def loadfakeu(*arg):
 
 def main():
 	start_time = time.time()
-	loadfakeu("/home/jenaw/Desktop/ECS 165A/Homework 4/Grades")
+	loadfakeu("/Users/miguel/Dropbox/cs/ecs165a/Homework4/Grades")
 	print("Time %lf secs.\n" % (time.time() - start_time))
 
 
