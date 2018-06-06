@@ -91,7 +91,7 @@ def partE() :
         INTO temp
         FROM Meeting
         INNER JOIN Course ON Course.CID = Meeting.CID AND Time != 'None'
-        WHERE NOT CAST(Meeting.Term AS TEXT) LIKE '%06';
+        WHERE NOT CAST(Meeting.Term AS TEXT) LIKE '%06a';
     """)
 
     #CID's not equal, Subj not equal, TERM equal, Instructor Equal

@@ -8,7 +8,7 @@ import time
 
 
 def loadfakeu(directory):
-	connection = psycopg2.connect("dbname=FakeUData")
+	connection = psycopg2.connect("dbname=fakeudata")
 	cursor = connection.cursor()
 
 	cursor.execute("""
