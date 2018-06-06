@@ -1,28 +1,25 @@
+#!/usr/bin/python3
+
+import os
+import sys
 import psycopg2
 import csv
-import os
-import time 
+import time
 
 
-def loadfakeu(*arg):
-	if len(arg) == 0:
-		directory = os.getcwd()
-	else:
-		directory = arg[0]
-
-	connection = psycopg2.connect("dbname=fakeudata")
+def loadfakeu(directory):
+	connection = psycopg2.connect("dbname=FakeUData")
 	cursor = connection.cursor()
 
 	cursor.execute("""
 		CREATE TABLE Course(
 			CID INT,
 			Term INT,
-			Subj CHAR(5),
+			Subj VARCHAR(5),
 			Crse INT,
 			Sec INT,
 			Units VARCHAR(15),
-			PRIMARY KEY(CID, Term)
-		)
+			PRIMARY KEY(CID, Term))
 	""")
 
 	cursor.execute("""
@@ -35,8 +32,7 @@ def loadfakeu(*arg):
 			Time VARCHAR(30),
 			Building VARCHAR(10),
 			Room VARCHAR(5),
-			PRIMARY KEY(CID, Term, Type)
-		)
+			PRIMARY KEY(CID, Term, Type))
 	""")
 
 	cursor.execute("""
@@ -45,8 +41,7 @@ def loadfakeu(*arg):
 			Surname VARCHAR(20),
 			Prefname VARCHAR(20),
 			Email VARCHAR(50),
-			PRIMARY KEY(SID)
-		)
+			PRIMARY KEY(SID))
 	""")
 
 	cursor.execute("""
@@ -61,65 +56,76 @@ def loadfakeu(*arg):
 			Major VARCHAR(5),
 			Grade VARCHAR(5),
 			Status VARCHAR(2),
-			PRIMARY KEY(CID, Term, SID)
-		)
+			PRIMARY KEY(CID, Term, SID))
 	""")
 
 	connection.commit()
 	
 	for csv_file in os.listdir(directory):
+		if not csv_file.endswith(".csv"):
+			continue
 		print(csv_file)
 		with open(os.path.join(directory, csv_file), 'r') as file:
 			reader = csv.reader(file)
 
 			for line in reader:
+
 				if line[0] == 'CID':
 					line = next(reader)
 					while len(line) != 1:
 						line = [None if x=='' else x for x in line]
 						cid, term, subj, crse, sec, units = line
-						cursor.execute(
-							"INSERT INTO Course VALUES (%s, %s, %s, %s, %s, %s)",
+						cursor.execute("SELECT cid, term FROM Course;")
+						temp = cursor.fetchall()
+						t = ()
+						t = t + (int(cid),) + (int(term),)
+						if t in temp:
+							term = str(int(term) + 1)
+							line[1] = term
+						cursor.execute("""
+							INSERT INTO Course VALUES (%s, %s, %s, %s, %s, %s)""",
 							line
 						)
 						line = next(reader)
+
 				elif line[0] == 'INSTRUCTOR(S)':
 					line = next(reader)
 					counter = 0
 					while len(line) != 1:
-						if counter != 0:
+						if counter != 0 and line[0] == "":
 							line[0] = instructor
 						line = [None if x == '' else x for x in line]
+						if line[1] == None:
+							line[1] = 'NULL'
 						instructor, type, days, time, build, room = line
 						line = [cid, term] + line
-						if type == None:
-							type = 'NULL'
-							line[3] = 'NULL'
-						cursor.execute(
-							"""INSERT INTO Meeting VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+						
+						cursor.execute("""
+							INSERT INTO Meeting VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
 							ON CONFLICT (CID, Term, Type) DO NOTHING
-							""",
-							line
+							""", line
 						)
 						line = next(reader)
 						counter += 1
+
 				elif line[0] == 'SEAT':
 					try:
 						line = next(reader)
 					except StopIteration:
 						cursor.execute("DELETE FROM Course WHERE CID=%s AND Term=%s", (cid, term))
-						cursor.execute("DELETE FROM Meeting WHERE CID=%s AND Term=%s AND Type=%s", (cid, term, type))
+						cursor.execute("DELETE FROM Meeting WHERE CID=%s AND Term=%s", (cid, term))
 						break
 					if len(line) == 1:
 						cursor.execute("DELETE FROM Course WHERE CID=%s AND Term=%s", (cid, term))
-						cursor.execute("DELETE FROM Meeting WHERE CID=%s AND Term=%s AND Type=%s", (cid, term, type))
+						cursor.execute("DELETE FROM Meeting WHERE CID=%s AND Term=%s", (cid, term))
 					else:
-						while len(line) != 0 and len(line) != 1:
+						while len(line) != 1:
 							line = [None if x == '' else x for x in line]
 							seat, sid, surname, prefname, level, units, clas, major, grade, status, email = line
 							line = [cid, term, sid, seat, level, units, clas, major, grade, status]
-							cursor.execute(
-								"INSERT INTO Enrolled VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+							cursor.execute("""
+								INSERT INTO Enrolled VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+								ON CONFLICT (cid, term, sid) DO NOTHING""",
 								line
 							)
 							line = [sid, surname, prefname, email]
@@ -135,13 +141,26 @@ def loadfakeu(*arg):
 	
 	cursor.close()
 	connection.close()
+	print("Sucessfully loaded data.")
 
 
 def main():
 	start_time = time.time()
-	loadfakeu("/Users/miguel/Dropbox/cs/ecs165a/Homework4/Grades")
-	print("Time %lf secs.\n" % (time.time() - start_time))
 
+	if len(sys.argv) == 1:
+		directory = os.getcwd()
+	elif len(sys.argv) == 2:
+		if os.path.isabs(sys.argv[1]):
+			directory = sys.argv[1]
+		else:
+			directory = os.path.join(os.getcwd(), sys.argv[1])
+	else:
+		print("Too many arguments.")
+		sys.exit()
+	
+	loadfakeu(directory)
+
+	print(time.time() - start_time)
 
 if __name__ == "__main__":
 	main()
