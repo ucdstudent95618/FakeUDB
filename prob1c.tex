@@ -1,22 +1,21 @@
 % Problem 1c goes below
-
 The FD's that should hold are the following:  \\
 
 Student: \\
-$SID \rightarrow PREFNAME SURNAME EMAIL  $ \\
+SID \rightarrow PREFNAME \enspace SURNAME \enspace EMAIL \\
 $SID \rightarrow PREFNAME$ \\
 $SID \rightarrow SURNAME$ \\
 $SID \rightarrow EMAIL$ \\ 
 
 Course: \\
-$CID TERM \rightarrow SEC UNITS SUBJ CRSE$ \\
+$CID TERM \rightarrow SEC \enspace UNITS \enspace SUBJ \enspace CRSE$ \\
 $CID TERM \rightarrow SEC$ \\
 $CID TERM \rightarrow UNITS$ \\ 
 $CID TERM \rightarrow SUBJ$ \\
 $CID TERM \rightarrow CRSE$ \\
 
 Enrolled: \\
-$CID TERM SID \rightarrow SEAT LEVEL UNITS CLASS MAJOR GRADE STATUS$\\
+$CID \enspace TERM \enspace SID \rightarrow SEAT \enspace LEVEL UNITS \enspace CLASS \enspace MAJOR \enspace GRADE \enspace STATUS$\\
 $CID TERM SID \rightarrow SEAT$\\
 $CID TERM SID \rightarrow LEVEL$\\
 $CID TERM SID \rightarrow UNITS$\\
@@ -34,45 +33,45 @@ $TYPE \rightarrow BUILD$ \\
 The MD's that should hold are the following: \\
 
 Student: \\
-$SID \doublerightarrow PREFNAME SURNAME EMAIL$ \\
-$SID \doublerightarrow PREFNAME$ \\
-$SID \doublerightarrow SURNAME EMAIL$ \\
-$SID \doublerightarrow SURNAME$ \\
-$SID \doublerightarrow PREFNAME EMAIL$ \\
-$SID \doublerightarrow EMAIL$ \\ 
-$SID \doublerightarrow SURNAME PREFNAME$ \\
+$SID \twoheadrightarrow PREFNAME SURNAME EMAIL$ \\
+$SID \twoheadrightarrow PREFNAME$ \\
+$SID \twoheadrightarrow SURNAME EMAIL$ \\
+$SID \twoheadrightarrow SURNAME$ \\
+$SID \twoheadrightarrow PREFNAME EMAIL$ \\
+$SID \twoheadrightarrow EMAIL$ \\ 
+$SID \twoheadrightarrow SURNAME PREFNAME$ \\
 
 
 Course: \\
-$CID TERM \doublerightarrow SEC UNITS SUBJ CRSE$ \\
-$CID TERM \doublerightarrow SEC$ \\
-$CID TERM \doublerightarrow UNITS SUBJ CRSE$ \\
-$CID TERM \doublerightarrow UNITS$ \\
-$CID TERM \doublerightarrow SEC SUBJ CRSE$\\
-$CID TERM \doublerightarrow SUBJ$ \\
-$CID TERM \doublerightarrow SEC UNITS CRSE$ \\
-$CID TERM \doublerightarrow CRSE$ \\
-$CID TERM \doublerightarrow SEC SUBJ UNITS$ \\
+$CID TERM \twoheadrightarrow SEC UNITS SUBJ CRSE$ \\
+$CID TERM \twoheadrightarrow SEC$ \\
+$CID TERM \twoheadrightarrow UNITS SUBJ CRSE$ \\
+$CID TERM \twoheadrightarrow UNITS$ \\
+$CID TERM \twoheadrightarrow SEC SUBJ CRSE$\\
+$CID TERM \twoheadrightarrow SUBJ$ \\
+$CID TERM \twoheadrightarrow SEC UNITS CRSE$ \\
+$CID TERM \twoheadrightarrow CRSE$ \\
+$CID TERM \twoheadrightarrow SEC SUBJ UNITS$ \\
 
 Enrolled: \\
 
-$CID TERM SID \doublerightarrow SEAT LEVEL UNITS CLASS MAJOR GRADE STATUS$ \\
-$CID TERM SID \doublerightarrow SEAT$ \\
-$CID TERM SID \doublerightarrow LEVEL UNITS CLASS MAJOR GRADE STATUS$\\
-$CID TERM SID \doublerightarrow LEVEL$ \\
-$CID TERM SID \doublerightarrow SEAT UNITS CLASS MAJOR GRADE STATUS$\\
-$CID TERM SID \doublerightarrow UNITS$\\
-$CID TERM SID \doublerightarrow LEVEL SEAT CLASS MAJOR GRADE STATUS$ \\
-$CID TERM SID \doublerightarrow CLASS$\\
-$CID TERM SID \doublerightarrow LEVEL SEAT UNITS MAJOR GRADE STATUS$ \\
-$CID TERM SID \doublerightarrow MAJOR$\\
-$CID TERM SID \doublerightarrow LEVEL SEAT UNITS CLASS GRADE STATUS$\\
-$CID TERM SID \doublerightarrow GRADE$\\
-$CID TERM SID \doublerightarrow LEVEL SEAT UNITS CLASS MAJOR STATUS$ \\
-$CID TERM SID \doublerightarrow STATUS$\\
-$CID TERM SID \doublerightarrow LEVEL SEAT UNITS CLASS MAJOR GRADE$ \\
+$CID TERM SID \twoheadrightarrow SEAT LEVEL UNITS CLASS MAJOR GRADE STATUS$ \\
+$CID TERM SID \twoheadrightarrow SEAT$ \\
+$CID TERM SID \twoheadrightarrow LEVEL UNITS CLASS MAJOR GRADE STATUS$\\
+$CID TERM SID \twoheadrightarrow LEVEL$ \\
+$CID TERM SID \twoheadrightarrow SEAT UNITS CLASS MAJOR GRADE STATUS$\\
+$CID TERM SID \twoheadrightarrow UNITS$\\
+$CID TERM SID \twoheadrightarrow LEVEL SEAT CLASS MAJOR GRADE STATUS$ \\
+$CID TERM SID \twoheadrightarrow CLASS$\\
+$CID TERM SID \twoheadrightarrow LEVEL SEAT UNITS MAJOR GRADE STATUS$ \\
+$CID TERM SID \twoheadrightarrow MAJOR$\\
+$CID TERM SID \twoheadrightarrow LEVEL SEAT UNITS CLASS GRADE STATUS$\\
+$CID TERM SID \twoheadrightarrow GRADE$\\
+$CID TERM SID \twoheadrightarrow LEVEL SEAT UNITS CLASS MAJOR STATUS$ \\
+$CID TERM SID \twoheadrightarrow STATUS$\\
+$CID TERM SID \twoheadrightarrow LEVEL SEAT UNITS CLASS MAJOR GRADE$ \\
 
 Meeting: \\
-$CID TERM INSTRUCTOR TYPE DAYS TIME \doublerightarrow ROOM BUILD$ \\
-$TYPE \doublerightarrow ROOM$ \\
-$TYPE \doublerightarrow BUILD$ \\
+$CID TERM INSTRUCTOR TYPE DAYS TIME \twoheadrightarrow ROOM BUILD$ \\
+$TYPE \twoheadrightarrow ROOM$ \\
+$TYPE \twoheadrightarrow BUILD$ \\

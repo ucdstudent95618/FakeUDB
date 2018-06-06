@@ -1,83 +1,22 @@
 % Problem 1b goes below
 
-
 The relations are the following: \\
 
-Course(CID,TERM,SUBJ,CRSE,SEC,UNITS) \\
-Meeting(CID,TERM,INSTRUCTOR(S),TYPE,DAYS,TIME,BUILD,ROOM) \\
-Enrolled(CID,TERM,SID,SEAT,LEVEL,UNITS,CLASS,MAJOR,GRADE,STATUS) \\
-Student(SID,SURNAME,PREFNAME,EMAIL) \\ 
+Course(\underline{CID}, \underline{TERM}, SUBJ, CRSE, SEC, UNITS) \\
+Meeting(\underline{CID}, \underline{TERM}, INSTRUCTOR(S), \underline{TYPE}, DAYS, TIME, BUILD, ROOM) \\
+Enrolled(\underline{CID}, \underline{TERM}, \underline{SID}, SEAT, LEVEL, UNITS, CLASS, MAJOR, GRADE, STATUS) \\
+Student(\underline{SID}, SURNAME, PREFNAME, EMAIL) \\
 
-In the scheema we will have four tables: Course, Student, Meeting, Enrolled. \\
+In the schema we will have four tables: Course, Student, Meeting, and Enrolled. \\
 
 Course: \\
-We have the following attributes: CID, TERM, SUBJ, CRSE, SEC, UNITS \\
-The key is CID, TERM \\
-\begin{verbatim}
-CREATE TABLE Course(
-			CID INT,
-			Term INT,
-			Subj CHAR(5),
-			Crse INT,
-			Sec INT,
-			Units VARCHAR(15),
-			PRIMARY KEY(CID, Term)
-		)
-\end{verbatim}
-
-Student: \\
-We have the following attributes: SID, SURNAME, PREFNAME, EMAIL \\
-The key is SID \\
-
-\begin{verbatim}
-CREATE TABLE Student(
-			SID INT,
-			Surname VARCHAR(20),
-			Prefname VARCHAR(20),
-			Email VARCHAR(50),
-			PRIMARY KEY(SID)
-		)
-\end{verbatim}
-
+We have the following attributes: CID, TERM, SUBJ, CRSE, SEC, UNITS. CID, TERM, CRSE, and SEC are INT data types. SUBJ and UNITS are VARCHAR data types. The key is $\{CID, TERM\}$. \\
 
 Meeting:\\
-We have the following attributes: CID, TERM, INSTRUCTOR(S), TYPE, DAYS, TIME, BUILD, ROOM\\
-The key is CID, Term, Instructor, Type, Days, Time \\
-
-
-\begin{verbatim}
-CREATE TABLE Meeting(
-			CID INT,
-			Term INT,
-			Instructor VARCHAR(50),
-			Type VARCHAR(30),
-			Days VARCHAR(7),
-			Time VARCHAR(30),
-			Building VARCHAR(10),
-			Room VARCHAR(5),
-			PRIMARY KEY(CID, Term, Instructor, Type, Days, Time)
-		)
-\end{verbatim}
+We have the following attributes: CID, TERM, INSTRUCTOR(S), TYPE, DAYS, TIME, BUILD, and ROOM. CID and TERM are INT data types. The remaining attributes are stored as VARCHAR. The key is $\{CID, TERM, TYPE\}$. \\
 
 Enrolled: \\
-We have the following attributes:  CID, Term, SID, SEAT, LEVEL, UNITS, CLASS, MAJOR, GRADE, STATUS \\
-The key is CID, Term, SID \\
+We have the following attributes: CID, TERM, SID, SEAT, LEVEL, UNITS, CLASS, MAJOR, GRADE, and STATUS. CID, TERM, SID, and SEAT are of type INT. UNITS is of type DECIMAL. The rest are of type VARCHAR. The key is $\{CID, TERM, SID\}$. \\
 
-
-\begin{verbatim}
-	CREATE TABLE Enrolled(
-			CID INT,
-			Term INT,
-			SID INT,
-			Seat INT,
-			Level VARCHAR(5),
-			Units VARCHAR(5),
-			Class VARCHAR(2),
-			Major VARCHAR(5),
-			Grade VARCHAR(5),
-			Status VARCHAR(2),
-			PRIMARY KEY(CID, Term, SID)
-		)
-\end{verbatim}
-
-
+Student: \\
+We have the following attributes: SID, SURNAME, PREFNAME, and EMAIL. SID is stored as an INT data type. SURNAME, PREFNAME, and EMAIL are stored as VARCHAR data types. The key is $\{SID\}$. \\
