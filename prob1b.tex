@@ -10,13 +10,13 @@ Student(\underline{SID}, SURNAME, PREFNAME, EMAIL) \\
 In the schema we will have four tables: Course, Student, Meeting, and Enrolled. \\
 
 Course: \\
-We have the following attributes: CID, TERM, SUBJ, CRSE, SEC, UNITS. CID, TERM, CRSE, and SEC are INT data types. SUBJ and UNITS are VARCHAR data types. The key is $\{CID, TERM\}$. \\
+We have the following attributes: CID, TERM, SUBJ, CRSE, SEC, UNITS. CID, CRSE, and SEC are INT data types. TERM, SUBJ, and UNITS are VARCHAR data types. The key is $\{CID, TERM\}$. \\
 
 Meeting:\\
-We have the following attributes: CID, TERM, INSTRUCTOR(S), TYPE, DAYS, TIME, BUILD, and ROOM. CID and TERM are INT data types. The remaining attributes are stored as VARCHAR. The key is $\{CID, TERM, TYPE\}$. \\
+We have the following attributes: CID, TERM, INSTRUCTOR(S), TYPE, DAYS, TIME, BUILD, and ROOM. CID is a INT data type. The other attributes are stored as VARCHAR. The key is $\{CID, TERM, TYPE\}$. \\
 
 Enrolled: \\
-We have the following attributes: CID, TERM, SID, SEAT, LEVEL, UNITS, CLASS, MAJOR, GRADE, and STATUS. CID, TERM, SID, and SEAT are of type INT. UNITS is of type DECIMAL. The rest are of type VARCHAR. The key is $\{CID, TERM, SID\}$. \\
+We have the following attributes: CID, TERM, SID, SEAT, LEVEL, UNITS, CLASS, MAJOR, GRADE, and STATUS. CID, SID, and SEAT are of type INT. UNITS is of type DECIMAL. The rest are of type VARCHAR. The key is $\{CID, TERM, SID\}$. \\
 
 Student: \\
 We have the following attributes: SID, SURNAME, PREFNAME, and EMAIL. SID is stored as an INT data type. SURNAME, PREFNAME, and EMAIL are stored as VARCHAR data types. The key is $\{SID\}$. \\

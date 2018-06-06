@@ -8,7 +8,7 @@ import csv
 
 def loadfakeu(directory):
 	#REFERENCED FROM https://www.dataquest.io/blog/loading-data-into-postgres/
-	connection = psycopg2.connect("dbname=FakeUData")
+	connection = psycopg2.connect("dbname=fakeudata")
 	cursor = connection.cursor()
 
 	cursor.execute("""

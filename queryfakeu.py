@@ -419,7 +419,7 @@ def prob_3h(cursor) :
 
 
 def main():
-	connection = psycopg2.connect("dbname=FakeUData")
+	connection = psycopg2.connect("dbname=fakeudata")
 	cursor = connection.cursor()
 
 	prob_3a(cursor)
