@@ -4,17 +4,17 @@ import os
 import sys
 import psycopg2
 import csv
-import time
 
 
 def loadfakeu(directory):
-	connection = psycopg2.connect("dbname=fakeudata")
+	#REFERENCED FROM https://www.dataquest.io/blog/loading-data-into-postgres/
+	connection = psycopg2.connect("dbname=FakeUData")
 	cursor = connection.cursor()
 
 	cursor.execute("""
 		CREATE TABLE Course(
 			CID INT,
-			Term INT,
+			Term VARCHAR(10),
 			Subj VARCHAR(5),
 			Crse INT,
 			Sec INT,
@@ -25,7 +25,7 @@ def loadfakeu(directory):
 	cursor.execute("""
 		CREATE TABLE Meeting(
 			CID INT,
-			Term INT,
+			Term VARCHAR(10),
 			Instructor VARCHAR(50),
 			Type VARCHAR(30),
 			Days VARCHAR(7),
@@ -47,7 +47,7 @@ def loadfakeu(directory):
 	cursor.execute("""
 		CREATE TABLE Enrolled(
 			CID INT,
-			Term INT,
+			Term VARCHAR(10),
 			SID INT,
 			Seat INT,
 			Level VARCHAR(5),
@@ -64,7 +64,7 @@ def loadfakeu(directory):
 	for csv_file in os.listdir(directory):
 		if not csv_file.endswith(".csv"):
 			continue
-		print(csv_file)
+
 		with open(os.path.join(directory, csv_file), 'r') as file:
 			reader = csv.reader(file)
 
@@ -73,14 +73,15 @@ def loadfakeu(directory):
 				if line[0] == 'CID':
 					line = next(reader)
 					while len(line) != 1:
+						#REFERENCED FROM https://stackoverflow.com/questions/4231491/how-to-insert-null-values-into-postgresql-database-using-python
 						line = [None if x=='' else x for x in line]
 						cid, term, subj, crse, sec, units = line
 						cursor.execute("SELECT cid, term FROM Course;")
 						temp = cursor.fetchall()
 						t = ()
-						t = t + (int(cid),) + (int(term),)
+						t = t + (int(cid),) + (str(term),)
 						if t in temp:
-							term = str(int(term) + 1)
+							term = str(term) + 'a'
 							line[1] = term
 						cursor.execute("""
 							INSERT INTO Course VALUES (%s, %s, %s, %s, %s, %s)""",
@@ -100,6 +101,7 @@ def loadfakeu(directory):
 						instructor, type, days, time, build, room = line
 						line = [cid, term] + line
 						
+						#REFERENCED FROM http://www.postgresqltutorial.com/postgresql-upsert/
 						cursor.execute("""
 							INSERT INTO Meeting VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
 							ON CONFLICT (CID, Term, Type) DO NOTHING
@@ -145,8 +147,6 @@ def loadfakeu(directory):
 
 
 def main():
-	start_time = time.time()
-
 	if len(sys.argv) == 1:
 		directory = os.getcwd()
 	elif len(sys.argv) == 2:
@@ -159,8 +159,6 @@ def main():
 		sys.exit()
 	
 	loadfakeu(directory)
-
-	print(time.time() - start_time)
 
 if __name__ == "__main__":
 	main()
